@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CBRN GOLDEN PLATFORM - TACTICAL MONITOR</title>
+    <title>РІВНІ ЗАГРОЗИ (AEGL) БОЙОВИХ ОТРУЙНИХ ТА НЕБЕЗПЕЧНИХ ХІМІЧНИХ РЕЧОВИН</title>
     <style>
         :root {
             --bg-color: #080c0a;
@@ -269,8 +269,8 @@
 <div class="cbrn-panel">
     <header>
         <div>
-            <h2>ХБРЯ МОНІТОР // ПЛАТФОРМА COMRADE v5.0</h2>
-            <p>КОМПЛЕКСНИЙ АНАЛІЗ РІВНІВ ЗАГРОЗИ (AEGL) ХІМІКАТІВ ТА БОР</p>
+            <h2>РІВНІ ЗАГРОЗИ (AEGL) БОЙОВИХ ОТРУЙНИХ ТА НЕБЕЗПЕЧНИХ ХІМІЧНИХ РЕЧОВИН</h2>
+            <p>РІВНІ ЗАГРОЗИ (AEGL):    </p>
         </div>
         <div style="display: flex; align-items: center; gap: 10px;">
             <span style="font-size: 14px; font-weight: bold; color: var(--border-gold);">БОЙОВИЙ МОНІТОРИНГ</span>
@@ -280,13 +280,13 @@
 
     <div class="grid-container">
         <div class="control-group left-panel">
-            <h3>ВХІДНІ ДАНІ СЕКТОРУ</h3>
+            <h3>ВХІДНІ ДАНІ</h3>
             
             <label for="chemical-select">ОБЕРІТЬ РЕЧОВИНУ (НХР / БОР):</label>
             <select id="chemical-select" onchange="calculateAEGL()">
                 </select>
 
-            <label for="time-select">ЧАС ЕКСПОЗИЦІЇ (ПЛАНОВАНИЙ):</label>
+            <label for="time-select">ЧАС ЕКСПОЗИЦІЇ:</label>
             <select id="time-select" onchange="calculateAEGL()">
                 <option value="10min">10 Хвилин</option>
                 <option value="30min">30 Хвилин</option>
@@ -309,7 +309,7 @@
             
             <div class="aegl-card card-aegl1" id="card-1">
                 <div class="aegl-header">
-                    <span>AEGL-1 (ВІДЧУТНИЙ)</span>
+                    <span>AEGL-1 (ПОРОГОВИЙ)</span>
                     <span id="val-aegl1" class="aegl-value">0.00</span>
                 </div>
                 <div class="aegl-desc">Порогова концентрація: помірний дискомфорт, подразнення очей чи легкий кашель. Ефекти тимчасові та оборотні.</div>
@@ -317,7 +317,7 @@
 
             <div class="aegl-card card-aegl2" id="card-2">
                 <div class="aegl-header">
-                    <span>AEGL-2 (НЕЗВОРOТНИЙ)</span>
+                    <span>AEGL-2 (НЕЗВОРOТНІЙ)</span>
                     <span id="val-aegl2" class="aegl-value">0.00</span>
                 </div>
                 <div class="aegl-desc">Серйозні тривалі наслідки або недієздатність. Паніка, втрата координації, суттєве обмеження можливості самостійної евакуації.</div>
@@ -333,15 +333,15 @@
         </div>
 
         <div class="manual-section" id="manual-section">
-            <h3>📖 ТАКТИЧНА ДОВІДКА З AEGL</h3>
-            <p>База даних містить порогові концентрації бойових отруйних речовин (БОР) та небезпечних хімічних речовин (НХР) розроблені EPA США.</p>
+            <h3>📖 ДОВІДКА</h3>
+            <p>База даних містить токсодози (концентрація та час знаходження у зоні хімічного забруднення) бойових отруйних речовин (БОР) та небезпечних хімічних речовин (НХР) при  розроблені EPA США.</p>
             <p style="margin-top: 10px;">• <strong>УВАГА:</strong> Для Фосгену (CG) рівень <strong>AEGL-1</strong> не визначено/не рекомендовано (Позначено як <strong>NR</strong>).</p>
-            <p>• Одиниці вимірювання для БОР вказані в <strong>мг/м³</strong>, для загальних хімікатів (Хлор, Аміак) у <strong>ppm</strong>.</p>
+            <p>• Одиниці вимірювання для БОР вказані в <strong>мг/м³</strong>, для НХР (Хлор, Аміак) у <strong>ppm</strong>.</p>
         </div>
 
         <div class="live-status-bar">
             <div id="hazard-level-display" class="hazard-alert" style="color: #4af2a1;">
-                СТАТУС СЕКТОРУ: ОЧІКУВАННЯ ЗАМІРІВ У ПОВІТРІ
+                ОЧІКУВАННЯ ЗАМІРІВ У ПОВІТРІ
             </div>
         </div>
     </div>
@@ -459,16 +459,16 @@
         const display = document.getElementById("hazard-level-display");
 
         if (currentConc === 0) {
-            display.innerText = "СТАТУС СЕКТОРУ: ОЧІКУВАННЯ ЗАМІРІВ У ПОВІТРІ";
+            display.innerText = "ОЧІКУВАННЯ ЗАМІРІВ У ПОВІТРІ";
             display.style.color = "#4af2a1";
         } else if (limits.aegl1 !== null && currentConc < limits.aegl1) {
-            display.innerText = `СТАТУС СЕКТОРУ: БЕЗПЕЧНО (НИЖЧЕ МЕЖІ AEGL-1)`;
+            display.innerText = `БЕЗПЕЧНО (НИЖЧЕ МЕЖІ AEGL-1)`;
             display.style.color = "#4af2a1";
         } else if (limits.aegl1 === null && currentConc < limits.aegl2) {
-            display.innerText = `СТАТУС СЕКТОРУ: ПОМІРНИЙ РИЗИК (НИЖЧЕ МЕЖІ AEGL-2)`;
+            display.innerText = `ПОМІРНИЙ РИЗИК (НИЖЧЕ МЕЖІ AEGL-2)`;
             display.style.color = "var(--aegl1)";
         } else if (limits.aegl1 !== null && currentConc >= limits.aegl1 && currentConc < limits.aegl2) {
-            display.innerText = `УВАГА: ПЕРЕВИЩЕНО ПОРОГ AEGL-1 (ФІКСАЦІЯ СИМПТОМІВ!)`;
+            display.innerText = `УВАГА: ПЕРЕВИЩЕНО ПОРІГ AEGL-1 (ФІКСАЦІЯ СИМПТОМІВ!)`;
             display.style.color = "var(--aegl1)";
         } else if (currentConc >= limits.aegl2 && currentConc < limits.aegl3) {
             display.innerText = `НЕБЕЗПЕКА: ПЕРЕВИЩЕНО ПОРОГ AEGL-2 (НЕЗВОРOTНІ НАСЛІДКИ / ЕВАКУАЦІЯ!)`;

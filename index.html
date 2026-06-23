@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CBRN TACTICAL PANEL - AEGL MONITOR</title>
+    <title>CBRN GOLDEN PLATFORM - AEGL MONITOR</title>
     <style>
         :root {
-            --bg-color: #0d110f;
-            --panel-bg: #161f1a;
-            --border-color: #2f4f3e;
-            --text-color: #4af2a1;
-            --text-dim: #2b8c5d;
+            --bg-color: #080c0a;
+            --panel-bg: #111814;
+            --border-gold: #ffd700;
+            --border-dim: #3a4d41;
             
-            /* AEGL Colors */
+            /* Left side text */
+            --text-left: #ffcc00; 
+            
+            /* AEGL Signal Colors */
             --aegl1: #ffff00;
             --aegl2: #ff9900;
             --aegl3: #ff3333;
@@ -27,8 +29,8 @@
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-color);
-            padding: 20px;
+            color: #fff;
+            padding: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -37,161 +39,203 @@
 
         .cbrn-panel {
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
             background-color: var(--panel-bg);
-            border: 3px solid var(--border-color);
-            box-shadow: 0 0 20px rgba(74, 242, 161, 0.15);
-            padding: 20px;
+            /* Золота окантовка панелі платформи */
+            border: 4px solid var(--border-gold);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.25);
+            padding: 25px;
             position: relative;
-            overflow: hidden;
         }
 
-        /* Ефект ліній сканування */
+        /* CRT Ефект тактичного монітора */
         .cbrn-panel::before {
             content: " ";
             display: block;
             position: absolute;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 2;
-            background-size: 100% 4px, 6px 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
+            z-index: 5;
+            background-size: 100% 4px;
             pointer-events: none;
         }
 
         header {
-            border-bottom: 2px dashed var(--border-color);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
+            border-bottom: 3px double var(--border-gold);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
+        header h2 {
+            font-size: 24px;
+            color: var(--border-gold);
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 14px;
+            color: #888;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
         .status-blink {
-            width: 12px;
-            height: 12px;
-            background-color: var(--text-color);
+            width: 16px;
+            height: 16px;
+            background-color: #ff3333;
             border-radius: 50%;
             display: inline-block;
-            animation: blink 1.5s infinite;
+            animation: blink 1s infinite;
+            box-shadow: 0 0 10px #ff3333;
         }
 
         @keyframes blink {
-            0% { opacity: 0.2; }
+            0% { opacity: 0.3; }
             50% { opacity: 1; }
-            100% { opacity: 0.2; }
+            100% { opacity: 0.3; }
         }
 
         .grid-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 25px;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 800px) {
             .grid-container { grid-template-columns: 1fr; }
+            header { flex-direction: column; text-align: center; gap: 15px; }
         }
 
+        /* Загальне збільшення тексту для елементів форми */
         .control-group {
-            border: 1px solid var(--border-color);
-            padding: 15px;
-            background: rgba(0,0,0,0.3);
+            border: 2px solid var(--border-dim);
+            padding: 20px;
+            background: rgba(0,0,0,0.5);
+        }
+
+        /* ЛІВА ПАНЕЛЬ — ЖОВТИЙ СТИЛЬ */
+        .left-panel {
+            color: var(--text-left);
+        }
+
+        .left-panel h3 {
+            border-left: 5px solid var(--text-left);
+            color: var(--text-left);
         }
 
         .control-group h3 {
-            margin-bottom: 15px;
-            color: #fff;
+            margin-bottom: 20px;
             text-transform: uppercase;
-            font-size: 14px;
+            font-size: 18px;
             letter-spacing: 2px;
-            border-left: 3px solid var(--text-color);
-            padding-left: 8px;
+            padding-left: 10px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            font-size: 12px;
+            margin-bottom: 10px;
+            font-size: 15px;
             font-weight: bold;
+            letter-spacing: 1px;
         }
 
+        /* Крупні інпути та селектори */
         select, input {
             width: 100%;
-            background-color: #0a0e0c;
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            padding: 10px;
-            font-size: 16px;
-            margin-bottom: 15px;
+            background-color: #000;
+            border: 2px solid var(--border-dim);
+            color: inherit;
+            padding: 15px;
+            font-size: 20px; /* Крупний текст */
+            font-weight: bold;
+            margin-bottom: 20px;
             outline: none;
         }
 
-        select:focus, input:focus {
-            border-color: var(--text-color);
-            box-shadow: 0 0 5px rgba(74, 242, 161, 0.5);
+        .left-panel select, .left-panel input {
+            border-color: rgba(255, 204, 0, 0.4);
         }
 
-        /* Секція Результатів */
+        select:focus, input:focus {
+            border-color: var(--border-gold) !important;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        /* ПРАВА ПАНЕЛЬ — КОЛІР ВІДПОВІДНО ДО РІВНЯ AEGL */
         .results-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 15px;
+        }
+
+        .results-group h3 {
+            color: #fff;
+            border-left: 5px solid #fff;
         }
 
         .aegl-card {
-            border: 1px solid var(--border-color);
-            padding: 12px;
-            background: rgba(0,0,0,0.5);
-            position: relative;
+            border: 2px solid var(--border-dim);
+            padding: 18px;
+            background: rgba(0,0,0,0.7);
+            border-left: 8px solid transparent;
         }
 
-        .aegl-card::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; bottom: 0;
-            width: 6px;
+        /* Постійне підсвічування тексту та меж за рівнем небезпеки */
+        .card-aegl1 { 
+            border-color: var(--aegl1); 
+            color: var(--aegl1);
         }
-
-        .card-aegl1::before { background-color: var(--aegl1); }
-        .card-aegl2::before { background-color: var(--aegl2); }
-        .card-aegl3::before { background-color: var(--aegl3); }
+        .card-aegl2 { 
+            border-color: var(--aegl2); 
+            color: var(--aegl2);
+        }
+        .card-aegl3 { 
+            border-color: var(--aegl3); 
+            color: var(--aegl3);
+        }
 
         .aegl-header {
             display: flex;
             justify-content: space-between;
-            font-weight: bold;
-            margin-bottom: 5px;
+            font-size: 18px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            text-transform: uppercase;
         }
 
-        .aegl-1-title { color: var(--aegl1); }
-        .aegl-2-title { color: var(--aegl2); }
-        .aegl-3-title { color: var(--aegl3); }
+        .aegl-value {
+            font-size: 22px; /* Дуже чітке відображення цифр */
+            background: rgba(0,0,0,0.5);
+            padding: 2px 8px;
+            border: 1px solid currentColor;
+        }
 
         .aegl-desc {
-            font-size: 11px;
-            color: #a0b0a8;
-            line-height: 1.3;
+            font-size: 13px;
+            color: #fff; /* Опис залишаємо білим для читаності на кольоровому фоні */
+            font-weight: bold;
+            line-height: 1.4;
+            margin-top: 5px;
+            opacity: 0.9;
         }
 
+        /* НИЖНЯ ПАНЕЛЬ ОПОВІЩЕННЯ */
         .live-status-bar {
             grid-column: 1 / -1;
-            border: 1px solid var(--border-color);
-            padding: 15px;
-            background: #050806;
+            border: 2px solid var(--border-gold);
+            padding: 20px;
+            background: #000;
             text-align: center;
+            margin-top: 10px;
         }
 
         .hazard-alert {
-            font-size: 18px;
-            font-weight: bold;
-            letter-spacing: 3px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.01); }
-            100% { transform: scale(1); }
+            font-size: 22px;
+            font-weight: calc(900);
+            letter-spacing: 2px;
         }
     </style>
 </head>
@@ -200,26 +244,28 @@
 <div class="cbrn-panel">
     <header>
         <div>
-            <h2>ХБРЯ ЗАХИСТ // ОЦІНКА РИЗИКІВ</h2>
-            <p style="font-size: 11px; color: var(--text-dim);">МОДУЛЬ РОЗРАХУНКУ AEGL v4.1</p>
+            <h2>ХБРЯ МОНІТОР // ПЛАТФОРМА COMRADE</h2>
+            <p>АНАЛІЗ РІВНІВ ХІМІЧНОЇ ЗАГРОЗИ (AEGL)</p>
         </div>
-        <div style="text-align: right;">
-            <span class="status-blink"></span> <span style="font-size: 12px;">СИСТЕМА АКТИВНА</span>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 14px; font-weight: bold; color: var(--border-gold);">БОЙОВИЙ РЕЖИМ</span>
+            <span class="status-blink"></span>
         </div>
     </header>
 
     <div class="grid-container">
-        <div class="control-group">
-            <h3>ПАРАМЕТРИ СИТУАЦІЇ</h3>
+        <!-- ЛІВА КОЛОНКА: ВХІДНІ ПАРАМЕТРИ (ЖОВТИЙ СТИЛЬ) -->
+        <div class="control-group left-panel">
+            <h3>ВХІДНІ ДАНІ СЕКТОРУ</h3>
             
-            <label for="chemical-select">НЕБЕЗПЕЧНА ХІМІЧНА РЕЧОВИНА (НХР):</label>
+            <label for="chemical-select">НЕБЕЗПЕЧНА РЕЧОВИНА (НХР):</label>
             <select id="chemical-select" onchange="calculateAEGL()">
                 <option value="chlorine">Хлор (Chlorine) [Cl2]</option>
                 <option value="ammonia">Аміак (Ammonia) [NH3]</option>
-                <option value="hcn">Ціаністий водень (Hydrogen Cyanide) [HCN]</option>
+                <option value="hcn">Ціаністий водень (HCN)</option>
             </select>
 
-            <label for="time-select">ЧАС ЕКСПОЗИЦІЇ (ВПЛИВУ):</label>
+            <label for="time-select">ЧАС ЕКСПОЗИЦІЇ (ПЛАНОВАНИЙ):</label>
             <select id="time-select" onchange="calculateAEGL()">
                 <option value="10min">10 Хвилин</option>
                 <option value="30min">30 Хвилин</option>
@@ -228,41 +274,43 @@
                 <option value="8hr">8 Годин</option>
             </select>
 
-            <label for="current-concentration">ПОТОЧНА КОНЦЕНТРАЦІЯ НА МІСЦІ (ppm):</label>
+            <label for="current-concentration">ПОТОЧНИЙ ЗАМІР У ПОВІТРІ (ppm):</label>
             <input type="number" id="current-concentration" value="0" min="0" step="0.1" oninput="calculateAEGL()">
         </div>
 
+        <!-- ПРАВА КОЛОНКА: СИГНАЛЬНІ КАРТКИ AEGL -->
         <div class="control-group results-group">
-            <h3>ГРАНИЧНІ МЕЖІ (AEGL) ДЛЯ ОБРАНОГО ЧАСУ</h3>
+            <h3>МЕЖІ РИЗИКУ (ДЛЯ ОБРАНОГО ЧАСУ)</h3>
             
             <div class="aegl-card card-aegl1">
                 <div class="aegl-header">
-                    <span class="aegl-1-title">AEGL-1 (Відчутний ефект)</span>
-                    <span id="val-aegl1">0.00 ppm</span>
+                    <span>AEGL-1 (ВІДЧУТНИЙ)</span>
+                    <span id="val-aegl1" class="aegl-value">0.00 ppm</span>
                 </div>
-                <div class="aegl-desc">Відчутний дискомфорт, подразнення. Ефекти тимчасові та зникають після припинення впливу.</div>
+                <div class="aegl-desc">Поріг відчутності: подразнення очей, кашель, легкий дискомфорт. Ефекти оборотні.</div>
             </div>
 
             <div class="aegl-card card-aegl2">
                 <div class="aegl-header">
-                    <span class="aegl-2-title">AEGL-2 (Незворотний ефект)</span>
-                    <span id="val-aegl2">0.00 ppm</span>
+                    <span>AEGL-2 (НЕЗВОРOTНИЙ)</span>
+                    <span id="val-aegl2" class="aegl-value">0.00 ppm</span>
                 </div>
-                <div class="aegl-desc">Незворотні або інші серйозні тривалі наслідки для здоров'я, або обмеження здатності до евакуації.</div>
+                <div class="aegl-desc">Серйозні тривалі наслідки. Паніка, втрата координації, ускладнення евакуації сил.</div>
             </div>
 
             <div class="aegl-card card-aegl3">
                 <div class="aegl-header">
-                    <span class="aegl-3-title">AEGL-3 (Летальний ефект)</span>
-                    <span id="val-aegl3">0.00 ppm</span>
+                    <span>AEGL-3 (ЛЕТАЛЬНИЙ)</span>
+                    <span id="val-aegl3" class="aegl-value">0.00 ppm</span>
                 </div>
-                <div class="aegl-desc">Загроза життю або ризик летального результату при даній тривалості дії речовини.</div>
+                <div class="aegl-desc">Критичний рівень: пряма загроза смерті або важкої токсичної інтоксикації.</div>
             </div>
         </div>
 
+        <!-- НИЖНІЙ ІНДИКАТОР ЖИВОГО СТАТУСУ -->
         <div class="live-status-bar">
-            <div id="hazard-level-display" class="hazard-alert" style="color: var(--text-color);">
-                УРОВЕНЬ ЗАГРОЗИ: НОРМА / БЕЗПЕЧНО
+            <div id="hazard-level-display" class="hazard-alert" style="color: #4af2a1;">
+                СТАТУС СЕКТОРУ: ЧИСТО / БЕЗПЕЧНО
             </div>
         </div>
     </div>
@@ -299,36 +347,34 @@
         const time = document.getElementById("time-select").value;
         const currentConc = parseFloat(document.getElementById("current-concentration").value) || 0;
 
-        // Отримання лімітів
         const limits = aeglData[chem][time];
 
-        // Оновлення інтерфейсу довідковими даними
+        // Оновлення великих значень PPM
         document.getElementById("val-aegl1").innerText = limits.aegl1.toFixed(2) + " ppm";
         document.getElementById("val-aegl2").innerText = limits.aegl2.toFixed(2) + " ppm";
         document.getElementById("val-aegl3").innerText = limits.aegl3.toFixed(2) + " ppm";
 
-        // Логіка визначення рівня небезпеки на основі введеної концентрації
         const display = document.getElementById("hazard-level-display");
 
+        // Логіка зміни статусу нижнього екрана сповіщення
         if (currentConc === 0) {
-            display.innerText = "СТАТУС: ЧИСТО // НЕМАЄ ДАНИХ";
-            display.style.color = "var(--text-color)";
+            display.innerText = "СТАТУС СЕКТОРУ: ЧИСТО // ОЧІКУВАННЯ ЗАМІРІВ";
+            display.style.color = "#4af2a1";
         } else if (currentConc < limits.aegl1) {
-            display.innerText = "СТАТУС: НОРМА (НИЖЧЕ AEGL-1)";
+            display.innerText = "СТАТУС СЕКТОРУ: БЕЗПЕЧНО (НИЖЧЕ МЕЖІ AEGL-1)";
             display.style.color = "#4af2a1";
         } else if (currentConc >= limits.aegl1 && currentConc < limits.aegl2) {
-            display.innerText = "УВАГА: ПЕРЕВИЩЕНО РІВЕНЬ AEGL-1 (ПІДТВЕРДЖЕНО ВПЛИВ)";
+            display.innerText = "УВАГА: ПЕРЕВИЩЕНО ПОРОГ AEGL-1 (ФІКСАЦІЯ СИМПТОМІВ)";
             display.style.color = "var(--aegl1)";
         } else if (currentConc >= limits.aegl2 && currentConc < limits.aegl3) {
-            display.innerText = "НЕБЕЗПЕКА: ПЕРЕВИЩЕНО РІВЕНЬ AEGL-2 (НЕЗВОРОТНІ НАСЛІДКИ!)";
+            display.innerText = "НЕБЕЗПЕКА: ПЕРЕВИЩЕНО ПОРОГ AEGL-2 (ЕВАКУАЦІЯ ОСОБОВОГО СКЛАДУ!)";
             display.style.color = "var(--aegl2)";
         } else if (currentConc >= limits.aegl3) {
-            display.innerText = "КРИТИЧНА ЗАГРОЗА: ПЕРЕВИЩЕНО РІВЕНЬ AEGL-3 (ЛЕТАЛЬНА ЗОНА!)";
+            display.innerText = "КРИТИЧНА ЗАГРОЗА: ПЕРЕВИЩЕНО ПОРОГ AEGL-3 (ЛЕТАЛЬНА КОНЦЕНТРАЦІЯ!)";
             display.style.color = "var(--aegl3)";
         }
     }
 
-    // Первинна ініціалізація при завантаженні сторінки
     window.onload = calculateAEGL;
 </script>
 
